@@ -23,16 +23,18 @@ const main = () => {
 main();
 
 // Deque
+
 class Node {
-  constructor(e) {
-    this.e = e;
+  constructor(v) {
+    this.v = v;
+    this.next = null;
   }
 }
 
 class Queue {
   constructor() {
-    this.front = null;
-    this.rear = null;
+    this.start = null;
+    this.end = null;
     this.size = 0;
   }
 
@@ -40,23 +42,23 @@ class Queue {
     return this.size;
   }
 
-  append(e) {
-    let node = new Node(e);
-    if (this.size === 0) this.front = node;
-    else this.rear.next = node;
-    this.rear = node;
+  append(v) {
+    const node = new Node(v);
+    if (this.size === 0) this.start = node;
+    else this.end.next = node;
+    this.end = node;
     this.size++;
   }
 
   popleft() {
-    if (this.size === 0) return;
-    let value = this.front.e;
+    if (this.size === 0) return false;
+    const value = this.start.v;
     this.size--;
 
     if (this.size === 0) {
-      this.front = null;
-      this.rear = null;
-    } else this.front = this.front.next;
+      this.start = null;
+      this.end = null;
+    } else this.start = this.start.next;
     return value;
   }
 }
