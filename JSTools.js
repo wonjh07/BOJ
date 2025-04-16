@@ -23,6 +23,8 @@ const main = () => {
 main();
 
 // Deque
+// 최신 자바스크립트는 객체 해시구조로 되어있어서
+// 그냥 []를 써도 괜찮다고함
 
 class Node {
   constructor(v) {

@@ -1,15 +1,21 @@
 import sys
+sys.setrecursionlimit(10 ** 6)
 sys.stdin = open("input.txt", "rt")
 input = sys.stdin.readline
+
 
 def main():
     V, E = map(int, input().rstrip().split())
     parrent = [i for i in range(V+1)]
     cnt, cost = 0, 0
-    arr = sorted([tuple(map(int, input().rstrip().split())) for _ in range(E)], key=lambda x: x[2])
+    arr = sorted([tuple(map(int, input().rstrip().split()))
+                 for _ in range(E)], key=lambda x: x[2])
+
     def get_parrent(idx):
         if parrent[idx] != idx:
-            return get_parrent(parrent[idx])
+            result = get_parrent(parrent[idx])
+            parrent[idx] = result
+            return result
         else:
             return idx
 
@@ -32,4 +38,6 @@ def main():
 
     print(cost)
     return
+
+
 main()
