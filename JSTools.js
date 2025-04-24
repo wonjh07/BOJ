@@ -23,6 +23,8 @@ const main = () => {
 main();
 
 // 직접 포인터를 움직여가면서 입력 받기
+const len = input.length;
+let pos = 0;
 function readToken() {
   while (
     pos < len &&
@@ -133,5 +135,73 @@ class PriorityQueue {
 
   isEmpty() {
     return this.size === 0;
+  }
+}
+
+// heapq min
+class MinHeap {
+  constructor() {
+    this.heap = [];
+  }
+
+  push(val) {
+    this.heap.push(val);
+    this._bubbleUp();
+  }
+
+  popLeft() {
+    if (this.heap.length === 1) return this.heap.pop();
+    const min = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this._bubbleDown();
+    return min;
+  }
+
+  _bubbleUp() {
+    let index = this.heap.length - 1;
+    const current = this.heap[index];
+
+    while (index > 0) {
+      let parentIdx = Math.floor((index - 1) / 2);
+      if (this.heap[parentIdx] <= current) break;
+
+      [this.heap[parentIdx], this.heap[index]] = [
+        this.heap[index],
+        this.heap[parentIdx],
+      ];
+      index = parentIdx;
+    }
+  }
+
+  _bubbleDown() {
+    let index = 0;
+    const length = this.heap.length;
+
+    while (true) {
+      let left = 2 * index + 1;
+      let right = 2 * index + 2;
+      let smallest = index;
+
+      if (left < length && this.heap[left] < this.heap[smallest])
+        smallest = left;
+      if (right < length && this.heap[right] < this.heap[smallest])
+        smallest = right;
+
+      if (smallest === index) break;
+
+      [this.heap[index], this.heap[smallest]] = [
+        this.heap[smallest],
+        this.heap[index],
+      ];
+      index = smallest;
+    }
+  }
+
+  get size() {
+    return this.heap.length;
+  }
+
+  get peek() {
+    return this.heap[0];
   }
 }
